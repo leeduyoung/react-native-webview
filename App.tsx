@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, WebView, ActivityIndicator, Dimensions, BackHandler, ToastAndroid } from 'react-native';
+import { Platform, StyleSheet, Text, View, WebView, ActivityIndicator, Dimensions, BackHandler, ToastAndroid, StatusBar } from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props>
@@ -32,6 +32,10 @@ export default class App extends Component<Props>
         let {height, width} = Dimensions.get('window');
         return (
             <View style={{ flex: 1}}>
+                {/* <StatusBar
+                    backgroundColor="blue"
+                    barStyle="light-content"
+                /> */}
                 <WebView
                     onLoad={() => this.hideLoading()}
                     source={{ uri: 'http://192.168.0.39:8000/' }}
@@ -52,18 +56,17 @@ export default class App extends Component<Props>
         this.setState({ loading: false });
     }
 
-    private handleBackButtonClick(): void
+    private handleBackButtonClick(): boolean
     {
         if (!this.backExitFlag)
         {
             this.backExitFlag = true;
             ToastAndroid.show('한번 더 누르면 앱을 종료합니다.', ToastAndroid.BOTTOM);
             setTimeout(() => this.backExitFlag = false, 1200);
+            return true;
         }
         else
-        {
-            alert('exit app!');
-        }
+            return false;
     }
 }
 
