@@ -1,0 +1,3 @@
+rootProject.name = 'RnWebview20181026'
+
+include ':app'
